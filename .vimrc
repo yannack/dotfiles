@@ -28,6 +28,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'SirVer/ultisnips'
 Plugin 'chrismccord/bclose.vim'
 Plugin 'brookhong/cscope.vim'
+Plugin 'honza/vim-snippets'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)%{fugitive#statusline()}
