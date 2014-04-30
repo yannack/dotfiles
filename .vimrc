@@ -23,12 +23,12 @@ Plugin 'vim-scripts/SrcExpl'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'mitechie/pyflakes-pathogen'
 Plugin 'klen/python-mode'
-Plugin 'ervandew/supertab'
 Plugin 'majutsushi/tagbar'
 Plugin 'SirVer/ultisnips'
 Plugin 'chrismccord/bclose.vim'
 Plugin 'brookhong/cscope.vim'
 Plugin 'honza/vim-snippets'
+Plugin 'Valloric/YouCompleteMe'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)%{fugitive#statusline()}
@@ -158,25 +158,56 @@ let g:SrcExpl_nextDefKey = "<F4>"
 nmap <F7> :NERDTreeToggle<CR>
 nnoremap <F2> :NumbersToggle<CR>
 
-let g:UltiSnipsListSnippets="<s-tab>"
+" let g:UltiSnipsListSnippets="<s-tab>"
+" Default for list of snippets is C-Tab, only works in GVim...
+"let g:UltiSnipsExpandTrigger="<C-j>"
+"let g:UltiSnipsJumpForwardTrigger="<C-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+
+"""""""""""""""""""""""""""""""""""
+"  UltiSnips / YCM Compatibility  "
+"""""""""""""""""""""""""""""""""""
+
+let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+function! g:UltiSnips_Complete()
+    call UltiSnips#ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips#JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+" ---------------
+
 setlocal foldmethod=syntax
 autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python,ruby,java normal zR
 
-" PEP-8
-let g:pep8_map='<leader>8'
-
-" VirtualEnv support
-" Add the virtualenv's site-packages to vim path
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
+"" PEP-8
+"let g:pep8_map='<leader>8'
+"
+"" VirtualEnv support (not sure this is needed anymore)
+"" Add the virtualenv's site-packages to vim path
+"py << EOF
+"import os.path
+"import sys
+"import vim
+"if 'VIRTUAL_ENV' in os.environ:
+"    project_base_dir = os.environ['VIRTUAL_ENV']
+"    sys.path.insert(0, project_base_dir)
+"    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"    execfile(activate_this, dict(__file__=activate_this))
+"EOF
 
 let g:qb_hotkey = "<F9>"
 " For digraphs, use C-y => <C-y> + a' = á 
