@@ -105,12 +105,12 @@ let g:SrcExpl_gobackKey = "<SPACE>"
 " // In order to Avoid conflicts, the Source Explorer should know what plugins "
 " // are using buffers. And you need add their buffer names into below list    "
 " // according to the command ":buffers!"                                      "
-" let g:SrcExpl_pluginList = [
-"         \ "__Tag_List__",
-"         \ "__Tagbar__",
-"         \ "_NERD_tree_",
-"         \ "Source_Explorer"
-"     \ ]
+let g:SrcExpl_pluginList = [
+        \ "__Tag_List__",
+        \ "__Tagbar__",
+        \ "_NERD_tree_",
+        \ "Source_Explorer"
+    \ ]
 "                                                                              "
 " // Enable/Disable the local definition searching, and note that this is not  "
 " // guaranteed to work, the Source Explorer doesn't check the syntax for now. "
@@ -208,6 +208,20 @@ autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python,ruby,java normal zR
 "    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
 "    execfile(activate_this, dict(__file__=activate_this))
 "EOF
+
+" For search based on visual selection
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+
 
 let g:qb_hotkey = "<F9>"
 " For digraphs, use C-y => <C-y> + a' = á 
