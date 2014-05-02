@@ -56,6 +56,16 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 
+" Snippets variables
+let g:snips_github='https://github.com/yannack'
+let g:github='https://github.com/yannack'
+let g:snips_author='Yannick Brehon'
+let g:author='Yannick Brehon'
+let g:snips_email=''
+let g:email=''
+let g:snips_company='Smartmatic, Inc.'
+let g:company='Smartmatic, Inc.'
+
 " allow % to match on tags
 runtime macros/matchit.vim
 " Nerdtree
