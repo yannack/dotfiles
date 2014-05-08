@@ -201,7 +201,8 @@ endfunction
 
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 " ---------------
-
+" YCM / python bug:
+let g:pymode_rope_complete_on_dot = 0
 setlocal foldmethod=syntax
 autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python,ruby,java normal zR
 
