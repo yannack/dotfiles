@@ -12,16 +12,18 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-repeat'
+Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-surround'
 Plugin 'chriskempson/vim-tomorrow-theme'
+" Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-scripts/The-NERD-tree'
 Plugin 'vim-scripts/QuickBuf'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-scripts/SrcExpl'
 Plugin 'myusuf3/numbers.vim'
-Plugin 'mitechie/pyflakes-pathogen'
 Plugin 'klen/python-mode'
 Plugin 'majutsushi/tagbar'
 Plugin 'SirVer/ultisnips'
@@ -37,7 +39,7 @@ call vundle#end()            " required
 set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)%{fugitive#statusline()}
 set laststatus=2
 filetype plugin indent on
- 
+
 syntax on
 set number
 set hlsearch
@@ -69,6 +71,8 @@ let g:email=''
 let g:snips_company='Smartmatic, Inc.'
 let g:company='Smartmatic, Inc.'
 
+" Airline setup
+let g:airline_powerline_fonts=1
 " allow % to match on tags
 runtime macros/matchit.vim
 " Nerdtree
@@ -83,12 +87,17 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git','\.hg','\.svn','\.bz
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-set background=dark
+" set background=dark
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
 if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
-"colorscheme solarized
-"colorscheme wombat
+let g:solarized_termcolors=256
+" colorscheme solarized
 colorscheme Tomorrow-Night
 
 nmap <C-W>! <Plug>Bclose
@@ -97,7 +106,7 @@ nmap <C-W>! <Plug>Bclose
 set tags=./tags;
 nmap <F8> :TagbarToggle<CR>
 
-" Source Explorer Toggle 
+" Source Explorer Toggle
 nmap <F6> :SrcExplToggle<CR>
 
 " Set bash as default editor
@@ -144,7 +153,7 @@ let g:SrcExpl_pluginList = [
 let g:SrcExpl_prevDefKey = "<F3>"
 "                                                                              "
 " // Set "<F4>" key for displaying the next definition in the jump list        "
-let g:SrcExpl_nextDefKey = "<F4>" 
+let g:SrcExpl_nextDefKey = "<F4>"
 
 
 " Added for cscope
@@ -238,7 +247,7 @@ vnoremap <silent> # :<C-U>
 
 
 let g:qb_hotkey = "<F9>"
-" For digraphs, use C-y => <C-y> + a' = á 
+" For digraphs, use C-y => <C-y> + a' = á
 inoremap <C-y> <C-k>
 " For better autocompletion in Ex mode
 set wildmenu
