@@ -52,11 +52,12 @@ set nowrap
 set autoindent
 set history=1000
 set cursorline
-if has("unnamedplus")
-  set clipboard=unnamedplus
-elseif has("clipboard")
-  set clipboard=unnamed
-endif
+" To share the clipboard with other applications
+" if has("unnamedplus")
+"   set clipboard=unnamedplus
+" elseif has("clipboard")
+"   set clipboard=unnamed
+" endif
 
 set expandtab
 set shiftwidth=4
@@ -79,9 +80,10 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
-" allow % to match on tags
 
+" allow % to match on tags
 runtime macros/matchit.vim
+
 " Nerdtree
 "autocmd VimEnter * NERDTree
 "autocmd VimEnter * wincmd p
@@ -252,11 +254,12 @@ vnoremap <silent> # :<C-U>
 let g:qb_hotkey = "<F9>"
 
 " Create a column to mark the 80th character
-" set tw=79 " width of document (used by gd)
-" set nowrap " don't automatically wrap on load
-" set fo-=t " don't automatically wrap text when typing
-" set colorcolumn=80
-" highlight ColorColumn ctermbg=233
+set colorcolumn=80
+" The following 3 lines are to allow autoformatting with gqap (for a paragraph)
+" and auto formatting of comment lines.
+set tw=79 " width of document (used by gq)
+set nowrap " don't automatically wrap on load
+set fo-=t " don't automatically wrap text when typing
 
 " For digraphs, use C-y => <C-y> + a' = á
 inoremap <C-y> <C-k>
