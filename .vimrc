@@ -18,11 +18,12 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-surround'
 Plugin 'chriskempson/vim-tomorrow-theme'
-" Plugin 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-scripts/The-NERD-tree'
 Plugin 'vim-scripts/QuickBuf'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-scripts/SrcExpl'
+Plugin 'vim-scripts/ShowTrailingWhitespace'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'klen/python-mode'
 Plugin 'majutsushi/tagbar'
@@ -36,10 +37,10 @@ Plugin 'scrooloose/syntastic'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)%{fugitive#statusline()}
 set laststatus=2
 filetype plugin indent on
 
+let mapleader="ù"
 syntax on
 set number
 set hlsearch
@@ -50,11 +51,11 @@ set nowrap
 set autoindent
 set history=1000
 set cursorline
-"if has("unnamedplus")
-"  set clipboard=unnamedplus
-"elseif has("clipboard")
-"  set clipboard=unnamed
-"endif
+if has("unnamedplus")
+  set clipboard=unnamedplus
+elseif has("clipboard")
+  set clipboard=unnamed
+endif
 
 set expandtab
 set shiftwidth=4
@@ -73,7 +74,12 @@ let g:company='Smartmatic, Inc.'
 
 " Airline setup
 let g:airline_powerline_fonts=1
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 " allow % to match on tags
+
 runtime macros/matchit.vim
 " Nerdtree
 "autocmd VimEnter * NERDTree
@@ -87,18 +93,20 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git','\.hg','\.svn','\.bz
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-" set background=dark
 if has('gui_running')
     set background=light
 else
     set background=dark
 endif
+" set background=light
 if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
-let g:solarized_termcolors=256
-" colorscheme solarized
-colorscheme Tomorrow-Night
+" let g:solarized_termcolors=256
+
+colorscheme solarized
+" colorscheme Tomorrow-Night
+highlight ShowTrailingWhitespace ctermbg=red guibg=red
 
 nmap <C-W>! <Plug>Bclose
 
@@ -112,12 +120,6 @@ nmap <F6> :SrcExplToggle<CR>
 " Set bash as default editor
 let g:is_bash = 1
 
-" // Set the height of Source Explorer window                                  "
-" let g:SrcExpl_winHeight = 8
-"                                                                              "
-" // Set 100 ms for refreshing the Source Explorer                             "
-" let g:SrcExpl_refreshTime = 100
-"                                                                              "
 " // Set "Enter" key to jump into the exact definition context                 "
 let g:SrcExpl_jumpKey = "<ENTER>"
 "                                                                              "
@@ -180,6 +182,10 @@ let g:SrcExpl_nextDefKey = "<F4>"
 nmap <F7> :NERDTreeToggle<CR>
 nnoremap <F2> :NumbersToggle<CR>
 
+" Bind nohl to remove highlighting of last search
+noremap <C-n> :nohl<CR>
+
+
 " let g:UltiSnipsListSnippets="<s-tab>"
 " Default for list of snippets is C-Tab, only works in GVim...
 "let g:UltiSnipsExpandTrigger="<C-j>"
@@ -214,23 +220,15 @@ au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=
 " YCM / python bug:
 let g:pymode_rope_complete_on_dot = 0
 setlocal foldmethod=syntax
-autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python,ruby,java normal zR
+set nofoldenable
 
-"" PEP-8
-"let g:pep8_map='<leader>8'
-"
-"" VirtualEnv support (not sure this is needed anymore)
-"" Add the virtualenv's site-packages to vim path
-"py << EOF
-"import os.path
-"import sys
-"import vim
-"if 'VIRTUAL_ENV' in os.environ:
-"    project_base_dir = os.environ['VIRTUAL_ENV']
-"    sys.path.insert(0, project_base_dir)
-"    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"    execfile(activate_this, dict(__file__=activate_this))
-"EOF
+" Sort visual selection
+vnoremap <leader>s :sort<CR>
+
+" Easier indenting of code blocks (does not lose selection after indenting)
+vnoremap < <gv
+vnoremap > >gv
+
 
 " For search based on visual selection
 " Search for selected text, forwards or backwards.
@@ -245,8 +243,16 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-
+" QuickBuffers
 let g:qb_hotkey = "<F9>"
+
+" Create a column to mark the 80th character
+" set tw=79 " width of document (used by gd)
+" set nowrap " don't automatically wrap on load
+" set fo-=t " don't automatically wrap text when typing
+" set colorcolumn=80
+" highlight ColorColumn ctermbg=233
+
 " For digraphs, use C-y => <C-y> + a' = á
 inoremap <C-y> <C-k>
 " For better autocompletion in Ex mode
@@ -255,3 +261,6 @@ set wildmode=full
 " Type %% in a command, such as :e, to expand to the directory of the
 " current file
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+" Automatic reload of vimrc after changes
+autocmd! bufwritepost .vimrc source %
