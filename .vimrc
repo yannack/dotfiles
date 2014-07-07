@@ -26,6 +26,7 @@ Plugin 'vim-scripts/SrcExpl'
 Plugin 'vim-scripts/ShowTrailingWhitespace'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'klen/python-mode'
+Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'SirVer/ultisnips'
 Plugin 'chrismccord/bclose.vim'
@@ -116,6 +117,10 @@ nmap <F8> :TagbarToggle<CR>
 
 " Source Explorer Toggle
 nmap <F6> :SrcExplToggle<CR>
+
+" Ctrl-P plugin mappings
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
 " Set bash as default editor
 let g:is_bash = 1
