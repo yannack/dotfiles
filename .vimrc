@@ -224,8 +224,9 @@ endfunction
 
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 " ---------------
-" YCM / python bug:
+" YCM / python bug: (only prevents "." from completing, but Tab still works)
 let g:pymode_rope_complete_on_dot = 0
+
 setlocal foldmethod=syntax
 set nofoldenable
 
@@ -272,3 +273,6 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " Automatic reload of vimrc after changes
 autocmd! bufwritepost .vimrc source %
+
+" Automatic close preview window (:pc) once we are done.
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
