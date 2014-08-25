@@ -17,6 +17,7 @@ Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-surround'
+Plugin '/tpope/vim-repeat'
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-scripts/The-NERD-tree'
@@ -35,6 +36,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'scrooloose/syntastic'
+Plugin 'sjl/gundo.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -276,3 +278,6 @@ autocmd! bufwritepost .vimrc source %
 
 " Automatic close preview window (:pc) once we are done.
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+
+" Gundo
+nnoremap <F5> :GundoToggle<CR>
