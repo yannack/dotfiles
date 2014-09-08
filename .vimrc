@@ -17,7 +17,6 @@ Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-surround'
-Plugin '/tpope/vim-repeat'
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-scripts/The-NERD-tree'
@@ -36,6 +35,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'scrooloose/syntastic'
+Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'sjl/gundo.vim'
 
 " All of your Plugins must be added before the following line
@@ -98,12 +98,12 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git','\.hg','\.svn','\.bz
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
-" set background=light
+" if has('gui_running')
+"     set background=light
+" else
+"     set background=dark
+" endif
+set background=light
 if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
