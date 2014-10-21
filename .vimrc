@@ -287,5 +287,14 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 " Gundo
 nnoremap <F5> :GundoToggle<CR>
 
-" Enable hard mode
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+" Let's break that habit of using arrow keys
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+inoremap <up> <nop>
+" Enable hard mode ...
+" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
