@@ -38,13 +38,15 @@ Plugin 'scrooloose/syntastic'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'sjl/gundo.vim'
 Plugin 'wikitopian/hardmode.git'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'gregsexton/gitv'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 set laststatus=2
 filetype plugin indent on
 
-let mapleader="ù"
+let mapleader="\<Space>"
 syntax on
 set number
 set hlsearch

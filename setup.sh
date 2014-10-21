@@ -16,7 +16,7 @@ cd ~/.fonts
 test -e PowerlineFonts.otf || wget https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf
 cd ~/
 fc-cache -vf ~/.fonts/
-test -d ~/.config/fontconfig/conf.d/ || mkdir ~/.config/fontconfig/conf.d/
+test -d ~/.config/fontconfig/conf.d/ || mkdir -p ~/.config/fontconfig/conf.d/
 cd ~/.config/fontconfig/conf.d/
 test -e 10-powerline-symbols.conf || wget https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
 echo "You need to restart all your terminal, gvim, vim instances to use the new fonts."
