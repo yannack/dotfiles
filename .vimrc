@@ -37,6 +37,7 @@ Plugin 'dkprice/vim-easygrep'
 Plugin 'scrooloose/syntastic'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'sjl/gundo.vim'
+Plugin 'wikitopian/hardmode.git'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -228,6 +229,8 @@ au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=
 " ---------------
 " YCM / python bug: (only prevents "." from completing, but Tab still works)
 let g:pymode_rope_complete_on_dot = 0
+" let g:pymode_lint_checkers = ['pylint', 'pyflakes', 'pep8', 'mccabe']
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 
 setlocal foldmethod=syntax
 set nofoldenable
@@ -281,3 +284,6 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 
 " Gundo
 nnoremap <F5> :GundoToggle<CR>
+
+" Enable hard mode
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
