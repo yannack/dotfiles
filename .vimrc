@@ -303,3 +303,6 @@ inoremap <up> <nop>
 
 " sudo save
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
+" Add space after comment added by NerdCommenter
+let NERDSpaceDelims=1
