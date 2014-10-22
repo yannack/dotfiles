@@ -300,3 +300,6 @@ inoremap <right> <nop>
 inoremap <up> <nop>
 " Enable hard mode ...
 " autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+
+" sudo save
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
