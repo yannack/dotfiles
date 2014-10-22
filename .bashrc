@@ -128,7 +128,8 @@ if ! shopt -oq posix; then
   fi
 fi
 source ~/liquidprompt/liquidprompt
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# Uncomment next line to have all history shared between terms
+# export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 alias bd=". bd -s"
 # Edit in "Readline vi mode"
 set -o vi
