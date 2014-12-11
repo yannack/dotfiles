@@ -26,6 +26,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'SirVer/ultisnips'
@@ -302,7 +303,7 @@ inoremap <up> <nop>
 " autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 " sudo save
-command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Add space after comment added by NerdCommenter
 let NERDSpaceDelims=1
