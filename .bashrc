@@ -132,7 +132,7 @@ source ~/liquidprompt/liquidprompt
 # export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 alias bd=". bd -s"
 # Edit in "Readline vi mode"
-set -o vi
+# set -o vi
 
 # A few useful aliases
 
