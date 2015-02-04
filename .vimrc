@@ -53,9 +53,10 @@ let mapleader="\<Space>"
 syntax on
 set number
 set hlsearch
-set showmatch
-set incsearch
-set ignorecase
+set showmatch		" Show matching brackets.
+set incsearch		" Incremental search
+set ignorecase		" Do case insensitive matching
+set smartcase		" Do smart case matching
 set nowrap
 set autoindent
 set history=1000
@@ -66,6 +67,14 @@ set cursorline
 " elseif has("clipboard")
 "   set clipboard=unnamed
 " endif
+" have Vim jump to the last position when reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+set showcmd		" Show (partial) command in status line.
+set autowrite		" Automatically save before commands like :next and :make
+set hidden		" Hide buffers when they are abandoned
 
 set expandtab
 set shiftwidth=4
@@ -307,3 +316,4 @@ command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Add space after comment added by NerdCommenter
 let NERDSpaceDelims=1
+
