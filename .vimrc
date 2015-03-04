@@ -244,6 +244,8 @@ au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=
 " ---------------
 " YCM / python bug: (only prevents "." from completing, but Tab still works)
 let g:pymode_rope_complete_on_dot = 0
+" Disable rope completion: slow and already provided by YCM
+let g:pymode_rope_completion = 0
 " let g:pymode_lint_checkers = ['pylint', 'pyflakes', 'pep8', 'mccabe']
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 
