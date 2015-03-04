@@ -275,7 +275,8 @@ vnoremap <silent> # :<C-U>
 let g:qb_hotkey = "<F9>"
 
 " Create a column to mark the 80th character
-set colorcolumn=80
+set colorcolumn=79
+let g:pymode_options_max_line_length = 79
 " The following 3 lines are to allow autoformatting with gqap (for a paragraph)
 " and auto formatting of comment lines.
 set tw=79 " width of document (used by gq)
