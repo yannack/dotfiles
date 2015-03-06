@@ -141,3 +141,4 @@ function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
 function fname() { find . -iname "*$@*"; }
 alias pp="ps axuf | pager"
 function mcd() { mkdir $1 && cd $1; }
+alias g="gvim --remote-silent"

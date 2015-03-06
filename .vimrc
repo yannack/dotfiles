@@ -1,3 +1,4 @@
+
 set nocompatible
 filetype off                   " required for Vundle
 
@@ -38,6 +39,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-scripts/python.vim'
 Plugin 'vim-scripts/QuickBuf'
 Plugin 'vim-scripts/ShowTrailingWhitespace'
 Plugin 'vim-scripts/SrcExpl'
@@ -62,6 +64,8 @@ set nowrap
 set autoindent
 set history=1000
 set cursorline
+" disable mouse clicks over gvim
+set mouse=
 " To share the clipboard with other applications
 " if has("unnamedplus")
 "   set clipboard=unnamedplus
@@ -93,6 +97,14 @@ let g:snips_company='Smartmatic, Inc.'
 let g:company='Smartmatic, Inc.'
 
 " Airline setup
+" set guifont=Sauce\ Code\ Powerline\ 11
+" set guifont=Literation\ Mono\ Powerline\ 11
+" set guifont=Liberation\ Mono\ for\ Powerline\ 11
+" set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
+" set guifont=Inconsolata\ for\ Powerline\ 11
+set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
+" set guifont=Sauce\ Code\ Powerline\ Regular\ 11
+
 let g:airline_powerline_fonts=1
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -210,6 +222,10 @@ nnoremap <F2> :NumbersToggle<CR>
 " Bind nohl to remove highlighting of last search
 noremap <C-n> :nohl<CR>
 
+" cd to the directory containing the file in the buffer
+nmap <silent> <leader>cd :lcd %:h<CR>
+nmap <silent> <leader>cr :lcd <c-r>=FindGitDirOrRoot()<cr><cr>
+nmap <silent> <leader>md :!mkdir -p %:p:h<CR>
 
 " let g:UltiSnipsListSnippets="<s-tab>"
 " Default for list of snippets is C-Tab, only works in GVim...
@@ -321,3 +337,25 @@ command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " Add space after comment added by NerdCommenter
 let NERDSpaceDelims=1
 
+
+" A few useful functions
+function! FindGitDirOrRoot()
+    let filedir = expand('%:p:h')
+    let cmd = 'bash -c "(cd ' . filedir . '; git rev-parse --show-toplevel 2>/dev/null)"'
+    let gitdir = system(cmd)
+    if strlen(gitdir) == 0
+        return '/'
+    else
+        return gitdir[:-2] " chomp
+    endif
+endfunction
+
+" Delete empty buffers, specially for files opened with --remote option
+autocmd BufAdd * :call <SID>DeleteBufferIfEmpty()
+function s:DeleteBufferIfEmpty()
+    if bufname('%') == ''
+        bwipe
+        " This will trigger filetype detection, mainly to trigger syntax highlighting
+        doautocmd BufRead
+    endif
+endfunction
