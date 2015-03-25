@@ -219,6 +219,7 @@ let g:SrcExpl_nextDefKey = "<F4>"
 
 
 nmap <F7> :NERDTreeToggle<CR>
+nmap <S-F7> :NERDTreeFind<CR>
 nnoremap <F2> :NumbersToggle<CR>
 
 " Bind nohl to remove highlighting of last search
