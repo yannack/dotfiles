@@ -18,6 +18,7 @@ Plugin 'bling/vim-airline'
 Plugin 'brookhong/cscope.vim'
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'chrismccord/bclose.vim'
+Plugin 'chase/vim-ansible-yaml'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'gregsexton/gitv'
 Plugin 'honza/vim-snippets'
@@ -137,7 +138,8 @@ if $COLORTERM == 'gnome-terminal'
 endif
 " let g:solarized_termcolors=256
 
-colorscheme solarized
+" made silent to allow proper initial installation from Ansible
+silent! colorscheme solarized
 " colorscheme Tomorrow-Night
 highlight ShowTrailingWhitespace ctermbg=red guibg=red
 

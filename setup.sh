@@ -14,11 +14,20 @@ sudo apt-get install build-essential cmake python-dev
 cd ~/.vim/bundle/YouCompleteMe
 ./install.sh
 
-# Powerline fonts for airline, better approach
+# Powerline fonts for airline
 cd /tmp
+# this part for gvim
 git clone https://github.com/powerline/fonts
 cd fonts
 ./install.sh
+# from here on, for console
+cd ~/.fonts/
+test -e PowerlineSymbols.otf || wget https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf
+cd ~/
+fc-cache -vf ~/.fonts/
+test -d ~/.config/fontconfig/conf.d/ || mkdir -p ~/.config/fontconfig/conf.d/
+cd ~/.config/fontconfig/conf.d/
+test -e 10-powerline-symbols.conf || wget https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
 
 # bd utility
 sudo wget -O /usr/bin/bd https://raw.github.com/vigneshwaranr/bd/master/bd
