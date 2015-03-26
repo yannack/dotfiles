@@ -2,9 +2,11 @@
 
 sudo apt-get install exuberant-ctags cscope
 
-ln -s ~/.vim/.vimrc ~/.vimrc
-ln -s ~/.vim/.bashrc ~/.bashrc
-ln -s ~/.vim/.liquidpromptrc ~/.liquidpromptrc
+ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
+ln -s ~/.dotfiles/bash/.bashrc ~/.bashrc
+ln -s ~/.dotfiles/bash/.liquidpromptrc ~/.liquidpromptrc
+ln -s ~/.dotfiles/vim/.vim ~/.vim
+test -d ~/.vim/bundle || mkdir ~/.vim/bundle
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 vim +PluginUpdate +qall

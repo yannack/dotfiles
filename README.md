@@ -1,5 +1,5 @@
-.vim
-====
+dotfiles
+========
 
 all my dotfiles (.vim, .liquidprompt, .bashrc, ...)
 
@@ -11,7 +11,7 @@ which uses ansible, or use the following (will probably no longer be maintained
 however).
 
 ```
-git clone https://github.com/yannack/.vim ~/.vim/
-cd ~/.vim
+git clone https://github.com/yannack/dotfiles ~/.dotfiles/
+cd ~/.dotfiles
 ./setup.sh
 ```

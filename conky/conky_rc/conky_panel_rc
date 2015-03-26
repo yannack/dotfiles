@@ -1,0 +1,137 @@
+background yes
+use_xft yes
+xftfont 123:size=8
+xftalpha 0.1
+update_interval 0.5
+total_run_times 0
+own_window yes
+own_window_type panel
+#own_window_type normal
+own_window_transparent no
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_argb_visual yes
+own_window_argb_value 123
+double_buffer yes
+minimum_size 100 1080 #width height
+maximum_width 400
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color gray
+default_shade_color red
+default_outline_color green
+alignment top_right
+gap_x 0
+gap_y 0
+#gap_x 10
+#gap_y 10
+no_buffers no
+uppercase no
+cpu_avg_samples 2
+net_avg_samples 1
+override_utf8_locale yes
+use_spacer right
+text_buffer_size 256
+if_up_strictness link
+
+TEXT
+
+${font openlogos:size=20}U${font Arial:size=20}${color Tan1}GNU${color Ivory}LINUX${font openlogos:size=20}t
+
+${voffset -90}
+${color DimGray}
+${font}
+${font Arial:bold:size=10}${color Tan1}SYSTEM ${color DarkSlateGray} ${hr 2}
+$font${color DimGray}$sysname $kernel $alignr $machine
+Intel Pentium D $alignr${freq_g cpu0}Ghz
+Uptime $alignr${uptime}
+File System $alignr${fs_type}
+
+${font Arial:bold:size=10}${color Tan1}PROCESSORS ${color DarkSlateGray}${hr 2}
+$font${color DimGray}CPU1  ${cpu cpu1}% ${cpubar cpu1}
+CPU2  ${cpu cpu2}% ${cpubar cpu2}
+CPU3  ${cpu cpu3}% ${cpubar cpu3}
+CPU4  ${cpu cpu4}% ${cpubar cpu4}
+CPU5  ${cpu cpu5}% ${cpubar cpu5}
+CPU6  ${cpu cpu6}% ${cpubar cpu6}
+CPU7  ${cpu cpu7}% ${cpubar cpu7}
+CPU8  ${cpu cpu8}% ${cpubar cpu8}
+
+${font Arial:bold:size=10}${color Tan1}MEMORY ${color DarkSlateGray}${hr 2}
+$font${color DimGray}MEM $alignc $mem / $memmax $alignr $memperc%
+$membar
+
+${font Arial:bold:size=10}${color Tan1}HDD ${color DarkSlateGray}${hr 2}
+$font${color DimGray}$alignr(${diskio}/s)
+$font${color DimGray}/home $alignc ${fs_used /home} / ${fs_size /home} $alignr ${fs_free_perc /home}%
+${fs_bar /home}
+${if_existing /media/truecrypt1/DropBox}/truecrypt1 $alignc ${fs_used /media/truecrypt1} / ${fs_size /media/truecrypt1} $alignr ${fs_free_perc /media/truecrypt1}%
+${fs_bar /media/truecrypt1}
+$endif
+
+${font Arial:bold:size=10}${color Tan1}TOP PROCESSES ${color DarkSlateGray}${hr 2}
+${color DimGray}$font${top_mem name 1}${alignr}${top mem 1} %
+$font${top name 2}${alignr}${top cpu 2} %
+$font${top name 3}${alignr}${top cpu 3} %
+$font${top name 4}${alignr}${top cpu 4} %
+
+${font Arial:bold:size=10}${color Tan2}NETWORK ${color DarkSlateGray}${hr 2}
+$font${color DimGray}IP on eth0 $alignr ${addr eth0}
+$font${color DimGray}IP on wlan0 $alignr ${addr wlan0}
+${if_up tun0}$font${color DimGray}IP on tun0 $alignr ${addr tun0}
+${endif}$font${color DimGray}External IP$alignr${execi 3600 wget -qO- http://ifconfig.me/ip | tail -n1}
+#${if_up eth0}$alignc eth0 $hr
+#Down $alignr ${downspeed eth0} kb/s
+#Up $alignr ${upspeed eth0} kb/s
+#Downloaded: $alignr  ${totaldown eth0}
+#Uploaded: $alignr  ${totalup eth0}${endif}${if_up wlan0}
+#$alignc wlan0 $hr
+#Down $alignr ${downspeed wlan0} kb/s
+#Up $alignr ${upspeed wlan0} kb/s
+#Downloaded: $alignr  ${totaldown wlan0}
+#Uploaded: $alignr  ${totalup wlan0}${endif}${if_up tun0}
+#$alignc tun0 $hr
+#Down $alignr ${downspeed tun0} kb/s
+#Up $alignr ${upspeed tun0} kb/s
+#Downloaded: $alignr  ${totaldown tun0}
+#Uploaded: $alignr  ${totalup tun0}${endif}
+#
+
+#
+#${font Arial:bold:size=10}${color Tan2}WEATHER ${color DarkSlateGray}${hr 2}
+#${font}${color DimGray}
+#
+#${voffset -25}${font Weather:size=45}${execi 1800 conkyForecast –location=BEXX0008 –datatype=WF}
+#${alignc 22}${voffset -60}${font Arial:bold:size=10}${color DimGray}${execi 1800 conkyForecast –location=BEXX0008 –datatype=HT}
+#$font${voffset -55}${alignr}${color DimGray}Wind: ${execi 1800 conkyForecast –location=BEXX0008 –datatype=WS}
+#${alignr}${color DimGray}Humidity: ${execi 1800 conkyForecast –location=BEXX0008 –datatype=HM}
+#${alignr}${color DimGray}Precipitation: ${execi 1800 conkyForecast –location=BEXX0008 –datatype=PC}
+#
+#${color DimGray}Sunrise: $alignr${execi 1800 conkyForecast –location=BEXX0008 –datatype=SR}${alignr}
+#Sunset: $alignr${execi 1800 conkyForecast –location=BEXX0008 –datatype=SS}$color
+#
+#${font Arial:bold:size=10}${color Tan2}MUSIC ${color DarkSlateGray}${hr 2}
+#${color DimGray}$font${if_running mpd}
+#$mpd_smart
+#$mpd_album
+#Bitrate $mpd_bitrate kbits/s
+#$mpd_status $mpd_elapsed/$mpd_length
+#
+${font Arial:bold:size=10}${color Tan2}TIME ${color DarkSlateGray}${hr 2}
+
+${color DimGray}${font}Panama:$alignr${tztime America/Panama %H:%M}
+${color DimGray}${font}Caracas:$alignr${tztime America/Caracas %H:%M}
+
+${color DarkSlateGray} ${font :size=30}$alignc${time %H:%M}
+${voffset -30}${font :bold:size=10}$alignc${time %d %b. %Y}
+${font :bold:size=8}$alignc${time %A}
+#$endif
+
+
+${voffset -10}${color DimGray}${font openlogos:size=20}umlgcGJ
+
+#${color Ivory}${font Radio Space:size=14}${time %A %d %Y}
+#${font Arial:bold:size=10}${color Tan2}Panama:${font Radio Space:size=14}$alignr${tztime America/Panama %H:%M}
+#${font Arial:bold:size=10}${color Tan2}Caracas:${font Radio Space:size=14}$alignr${tztime America/Caracas %H:%M}
+#${color Tan1}${font Radio Space:size=55}$alignr${time %H:%M}
