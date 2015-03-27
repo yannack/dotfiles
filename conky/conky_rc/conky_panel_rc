@@ -34,6 +34,7 @@ override_utf8_locale yes
 use_spacer right
 text_buffer_size 256
 if_up_strictness link
+lua_load ~/.dotfiles/conky/conky_helpers.lua
 
 TEXT
 
@@ -49,15 +50,7 @@ Uptime $alignr${uptime}
 File System $alignr${fs_type}
 
 ${font Arial:bold:size=10}${color Tan1}PROCESSORS ${color DarkSlateGray}${hr 2}
-$font${color DimGray}CPU1  ${cpu cpu1}% ${cpubar cpu1}
-CPU2  ${cpu cpu2}% ${cpubar cpu2}
-CPU3  ${cpu cpu3}% ${cpubar cpu3}
-CPU4  ${cpu cpu4}% ${cpubar cpu4}
-CPU5  ${cpu cpu5}% ${cpubar cpu5}
-CPU6  ${cpu cpu6}% ${cpubar cpu6}
-CPU7  ${cpu cpu7}% ${cpubar cpu7}
-CPU8  ${cpu cpu8}% ${cpubar cpu8}
-
+$font${color DimGray}${lua_parse cpu_bars}
 ${font Arial:bold:size=10}${color Tan1}MEMORY ${color DarkSlateGray}${hr 2}
 $font${color DimGray}MEM $alignc $mem / $memmax $alignr $memperc%
 $membar
