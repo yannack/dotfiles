@@ -22,7 +22,6 @@ Plugin 'chase/vim-ansible-yaml'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'gregsexton/gitv'
 Plugin 'honza/vim-snippets'
-Plugin 'kien/ctrlp.vim'
 Plugin 'klen/python-mode'
 Plugin 'majutsushi/tagbar'
 Plugin 'michaeljsmith/vim-indent-object'
@@ -31,6 +30,8 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/vimproc.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-commentary'
@@ -151,10 +152,6 @@ nmap <F8> :TagbarToggle<CR>
 
 " Source Explorer Toggle
 nmap <F6> :SrcExplToggle<CR>
-
-" Ctrl-P plugin mappings
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
 
 " Set bash as default editor
 let g:is_bash = 1
@@ -362,3 +359,8 @@ function s:DeleteBufferIfEmpty()
         doautocmd BufRead
     endif
 endfunction
+
+" Unite settings
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" Ctrl-P replacement
+nnoremap <C-p> :Unite -start-insert file_rec/async:!<CR>
