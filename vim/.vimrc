@@ -264,6 +264,9 @@ let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_completion = 0
 " let g:pymode_lint_checkers = ['pylint', 'pyflakes', 'pep8', 'mccabe']
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+" p for pdb, though it goes to ipdb. default of 'b' conflicts with the unite
+" setting below.
+let g:pymode_breakpoint_bind = '<leader>p'
 
 setlocal foldmethod=syntax
 set nofoldenable
@@ -364,3 +367,5 @@ endfunction
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " Ctrl-P replacement
 nnoremap <C-p> :Unite -start-insert file_rec/async:!<CR>
+nnoremap <leader>f :Unite -start-insert file_rec/async:!<CR>
+nnoremap <leader>b :Unite buffer<CR>
