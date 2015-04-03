@@ -365,7 +365,30 @@ endfunction
 
 " Unite settings
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" Ctrl-P replacement
+" Ctrl-P replacement, relearning will be fast though.
 nnoremap <C-p> :Unite -start-insert file_rec/async:!<CR>
-nnoremap <leader>f :Unite -start-insert file_rec/async:!<CR>
-nnoremap <leader>b :Unite buffer<CR>
+let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
+nnoremap <leader>ff :Unite -start-insert -buffer-name=files -auto-preview -no-split file_rec/async:!<CR>
+nnoremap <leader>fs :Unite -start-insert -buffer-name=files -auto-preview -default-action=split file_rec/async:!<CR>
+nnoremap <leader>fv :Unite -start-insert -buffer-name=files -auto-preview -default-action=vsplit file_rec/async:!<CR>
+nnoremap <leader>b :Unite buffer -buffer-name=buffers -no-split <CR>
+nnoremap <leader>r :UniteResume<CR>
+nnoremap [s :UnitePrev<CR>
+nnoremap ]s :UniteNext<CR>
+nnoremap [S :UniteFirst<CR>
+nnoremap ]S :UniteLast<CR>
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  nnoremap <leader>q :UniteClose<CR>
+endfunction
+
+" Unite search -- not sure about this yet...
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--line-numbers --nocolor --nogroup --smart-case --hidden'
+let g:unite_source_grep_recursive_opt = ''
+nnoremap <Leader>/ :<C-u>Unite -no-split -silent -buffer-name=ag grep:.<CR>
