@@ -31,6 +31,7 @@ Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/unite-outline'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'sjl/gundo.vim'
@@ -355,7 +356,7 @@ endfunction
 
 " Delete empty buffers, specially for files opened with --remote option
 autocmd BufAdd * :call <SID>DeleteBufferIfEmpty()
-function s:DeleteBufferIfEmpty()
+function! s:DeleteBufferIfEmpty()
     if bufname('%') == ''
         bwipe
         " This will trigger filetype detection, mainly to trigger syntax highlighting
@@ -373,6 +374,7 @@ nnoremap <leader>fs :Unite -start-insert -buffer-name=files -auto-preview -defau
 nnoremap <leader>fv :Unite -start-insert -buffer-name=files -auto-preview -default-action=vsplit file_rec/async:!<CR>
 nnoremap <leader>b :Unite buffer -buffer-name=buffers -no-split <CR>
 nnoremap <leader>r :UniteResume<CR>
+nnoremap <leader>o :Unite -start-insert -no-split outline<CR>
 nnoremap [s :UnitePrev<CR>
 nnoremap ]s :UniteNext<CR>
 nnoremap [S :UniteFirst<CR>
