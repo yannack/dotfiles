@@ -322,7 +322,7 @@ function! s:DeleteBufferIfEmpty()
 endfunction
 
 " Unite settings
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+silent! call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " Ctrl-P replacement, relearning will be fast though.
 nnoremap <C-p> :Unite -start-insert file_rec/async:!<CR>
 let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
