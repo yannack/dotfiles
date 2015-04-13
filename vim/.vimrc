@@ -43,7 +43,6 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tsukkee/unite-tag'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-scripts/python.vim'
-Plugin 'vim-scripts/QuickBuf'
 Plugin 'vim-scripts/ShowTrailingWhitespace'
 Plugin 'vim-scripts/The-NERD-tree'
 Plugin 'wikitopian/hardmode.git'
@@ -143,7 +142,7 @@ silent! colorscheme solarized
 " colorscheme Tomorrow-Night
 highlight ShowTrailingWhitespace ctermbg=red guibg=red
 
-nmap <C-W>! <Plug>Bclose
+nmap <C-W>x <Plug>Bclose
 
 " Tags
 set tags=./tags;
@@ -250,9 +249,6 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-" QuickBuffers
-let g:qb_hotkey = "<F9>"
-
 " Create a column to mark the 80th character
 set colorcolumn=79
 let g:pymode_options_max_line_length = 79
@@ -323,12 +319,13 @@ endfunction
 
 " Unite settings
 silent! call unite#filters#matcher_default#use(['matcher_fuzzy'])
+silent! call unite#filters#sorter_default#use(['sorter_rank'])
 " Ctrl-P replacement, relearning will be fast though.
 nnoremap <C-p> :Unite -start-insert file_rec/async:!<CR>
 let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
-nnoremap <leader>ff :Unite -start-insert -buffer-name=files -auto-preview -no-split file_rec/async:!<CR>
-nnoremap <leader>fs :Unite -start-insert -buffer-name=files -auto-preview -default-action=split file_rec/async:!<CR>
-nnoremap <leader>fv :Unite -start-insert -buffer-name=files -auto-preview -default-action=vsplit file_rec/async:!<CR>
+nnoremap <leader>f   :Unite -start-insert -buffer-name=files -no-split file_rec/async:!<CR>
+nnoremap <leader>ufs :Unite -start-insert -buffer-name=files -default-action=split file_rec/async:!<CR>
+nnoremap <leader>ufv :Unite -start-insert -buffer-name=files -default-action=vsplit file_rec/async:!<CR>
 nnoremap <leader>b :Unite buffer -buffer-name=buffers -no-split <CR>
 nnoremap <leader>r :UniteResume<CR>
 nnoremap <leader>o :Unite -start-insert -no-split outline<CR>
@@ -344,6 +341,17 @@ function! s:unite_settings()
   " Enable navigation with control-j and control-k in insert mode
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  nmap <buffer> <C-j>   <Plug>(unite_loop_cursor_down)
+  nmap <buffer> <C-k>   <Plug>(unite_loop_cursor_up)
+
+  " Split from within the unite selection
+  inoremap <silent><buffer><expr> <C-s> unite#do_action('split')
+  nnoremap <silent><buffer><expr> <C-s> unite#do_action('split')
+  inoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+  nnoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+
+  " Quit unite on backspace from normal mode, or using leader-q
+  nnoremap <BS> :UniteClose<CR>
   nnoremap <leader>q :UniteClose<CR>
 endfunction
 
