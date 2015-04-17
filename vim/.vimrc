@@ -323,6 +323,8 @@ silent! call unite#filters#sorter_default#use(['sorter_rank'])
 " Ctrl-P replacement, relearning will be fast though.
 nnoremap <C-p> :Unite -start-insert file_rec/async:!<CR>
 let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
+let g:unite_source_tag_max_fname_length = 128
+let g:unite_source_tag_max_name_length = 64
 nnoremap <leader>f   :Unite -start-insert -buffer-name=files -no-split file_rec/async:!<CR>
 nnoremap <leader>ufs :Unite -start-insert -buffer-name=files -default-action=split file_rec/async:!<CR>
 nnoremap <leader>ufv :Unite -start-insert -buffer-name=files -default-action=vsplit file_rec/async:!<CR>
@@ -334,6 +336,12 @@ nnoremap [s :UnitePrev<CR>
 nnoremap ]s :UniteNext<CR>
 nnoremap [S :UniteFirst<CR>
 nnoremap ]S :UniteLast<CR>
+
+" Replace <C-]> with a Unite-tag based search.
+autocmd BufEnter *
+            \   if empty(&buftype)
+            \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+            \|  endif
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
