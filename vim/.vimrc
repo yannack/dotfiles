@@ -17,6 +17,7 @@ Plugin 'bling/vim-airline'
 Plugin 'brookhong/cscope.vim'
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'chrismccord/bclose.vim'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'gregsexton/gitv'
@@ -85,6 +86,13 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
+
+" Easier split navigation
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-L> <C-W>l
+map <C-H> <C-W>h
+map <C-\> <C-W>w
 
 " Snippets variables
 let g:snips_github='https://github.com/yannack'
