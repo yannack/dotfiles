@@ -22,11 +22,14 @@ Plugin 'chase/vim-ansible-yaml'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'gregsexton/gitv'
 Plugin 'honza/vim-snippets'
+Plugin 'janko-m/vim-test'
+Plugin 'jgdavey/tslime.vim'
 Plugin 'klen/python-mode'
 Plugin 'majutsushi/tagbar'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'Raimondi/delimitMate'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
@@ -158,6 +161,14 @@ nmap <F8> :TagbarToggle<CR>
 
 " Set bash as default editor
 let g:is_bash = 1
+
+" DelimitMate
+imap <C-G>f <Plug>delimitMateS-Tab
+" For triple quotes
+au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+" The next two allow nice <CR> inside brackets, but mayb prove buggy
+let delimitMate_expand_cr = 1
+let delimitMate_jump_expansion = 1
 
 " Added for cscope
 "if has('cscope')
