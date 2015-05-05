@@ -39,6 +39,7 @@ Plugin 'Shougo/vimproc.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-repeat'
@@ -247,6 +248,52 @@ let g:pymode_breakpoint_bind = '<leader>p'
 setlocal foldmethod=syntax
 set nofoldenable
 
+au FileType python call SetupPython()
+
+function! SetupPython()
+    compiler nosetests
+    set makeprg=nosetests
+endfunction
+autocmd FileType qf call ParseNosetestsQuickFix()
+
+let g:dispatch_compilers = {'nosetests': 'nosetests'}
+let test#strategy = "dispatch"
+
+function! ParseNosetestsQuickFix()
+  " only will work for vim 7.4.718+ as an autocommand
+  if !exists( "w:quickfix_title" )
+      set nofoldenable
+      return
+  endif
+  if match( w:quickfix_title, '.*nosetests.*') != 0
+      set nofoldenable
+      return
+  endif
+  set foldexpr=getline(v:lnum)=~'^\|\|.===='?'>1':1
+  set foldmethod=expr
+  set foldtext=NosetestsFoldtextMaker()
+  set foldenable
+endfunction
+
+function! NosetestsFoldtextMaker()
+  let line = getline(v:foldstart)
+  let linenum = v:foldstart + 1
+  let found = 0
+  while linenum < v:foldend
+    if match( getline( linenum ), '^||.*' ) == 0
+      if found == 1
+        let line = getline( linenum )
+        break
+      endif
+    else
+      let found = 1
+    endif
+    let linenum = linenum + 1
+  endwhile
+  let n = v:foldend - v:foldstart + 1
+  let info = " " . n . " lines "
+  return "+" . v:folddashes . info . line
+endfunction
 " Sort visual selection
 vnoremap <leader>s :sort<CR>
 
