@@ -165,6 +165,8 @@ let g:is_bash = 1
 
 " DelimitMate
 imap <C-G>f <Plug>delimitMateS-Tab
+imap <C-G><C-f> <Plug>delimitMateS-Tab
+imap <C-G><C-g> <Plug>delimitMateJumpMany
 " For triple quotes
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 " The next two allow nice <CR> inside brackets, but mayb prove buggy
@@ -201,7 +203,6 @@ noremap <C-n> :nohl<CR>
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>
-nmap <silent> <leader>cr :lcd <c-r>=FindGitDirOrRoot()<cr><cr>
 nmap <silent> <leader>md :!mkdir -p %:p:h<CR>
 
 " let g:UltiSnipsListSnippets="<s-tab>"
@@ -337,7 +338,7 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 autocmd! bufwritepost .vimrc source %
 
 " Automatic close preview window (:pc) once we are done.
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd CursorMovedI *.py if pumvisible() == 0|pclose|endif
 
 " Gundo
 nnoremap <F5> :GundoToggle<CR>
@@ -355,23 +356,11 @@ inoremap <up> <nop>
 " autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 " sudo save
-command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+command! Sudow :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Add space after comment added by NerdCommenter
 let NERDSpaceDelims=1
 
-
-" A few useful functions
-function! FindGitDirOrRoot()
-    let filedir = expand('%:p:h')
-    let cmd = 'bash -c "(cd ' . filedir . '; git rev-parse --show-toplevel 2>/dev/null)"'
-    let gitdir = system(cmd)
-    if strlen(gitdir) == 0
-        return '/'
-    else
-        return gitdir[:-2] " chomp
-    endif
-endfunction
 
 " Delete empty buffers, specially for files opened with --remote option
 autocmd BufAdd * :call <SID>DeleteBufferIfEmpty()
@@ -425,8 +414,8 @@ function! s:unite_settings()
   nnoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
 
   " Quit unite on backspace from normal mode, or using leader-q
-  nnoremap <BS> :UniteClose<CR>
-  nnoremap <leader>q :UniteClose<CR>
+  nnoremap <buffer> <BS> :UniteClose<CR>
+  nnoremap <buffer> <leader>q :UniteClose<CR>
 endfunction
 
 " Unite search -- not sure about this yet...
