@@ -1,0 +1,101 @@
+
+<style media="all">
+body {
+    font-size: 12.8px;
+}
+span {
+    float:right;
+}
+.level3 > ul {
+    padding: 0;
+    margin: 2px;
+}
+li { 
+    list-style-type: none;
+    background: white; 
+    padding-right:3px;
+    padding-left:3px;
+}
+li:nth-child(odd) { background: #d3fed5; }
+
+table {
+    width: 296px;
+    border-collapse: collapse;
+    margin: 2px;
+    margin-top: 0px;
+}
+tr {
+    background: white; 
+    padding-right:3px;
+    padding-left:3px;
+}
+tr:nth-child(odd) { background: #d3fed5; }
+td:nth-child(1) { min-width: 40px }
+
+.level1 {
+    max-width: 935px;
+}
+.level2 {
+    display: flex;
+    flex-flow: column wrap;
+    max-height: 900px;
+    justify-content: space-between;
+}
+.level3 {
+    display: inline-block;
+    background: black;
+    width: 300px;
+    border-radius: 5px;
+    margin: 2px;
+    margin-left: 10px;
+}
+h1 {
+    font-size: 36px;
+    text-align: center;
+    background-image: url("Vimlogo.svg");
+    background-repeat: no-repeat;
+    background-position: 20px;
+    background-size: 75px;
+    margin: 0px;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+h2 {
+    font-size: 0px;
+}
+h3 {
+    font-family: "Lucida Grande", sans-serif;
+    color: white;
+    margin:2px;
+    background: #019833;
+    padding: 4px;
+    font-size: 13px;
+}
+.level3 p {
+    margin: 2px;
+    margin-bottom: 0px;
+    background-color:white;
+    padding: 2px;
+}
+#copyright > h1 {
+    background-image: none;
+    margin-bottom: 0px;
+    margin-top: 30px;
+    text-align: left;
+    font-size: 10px;
+    padding:10px;
+    padding-bottom:3px;
+}
+#copyright > p {
+    margin-top: 0px;
+    padding-left: 10px;
+    font-size: 8px;
+}
+</style>
+<style media="print">
+@page 
+{
+    size: auto;   /* auto is the initial value */
+    margin: 20mm;  /* this affects the margin in the printer settings */
+}
+</style>
