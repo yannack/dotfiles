@@ -3,7 +3,7 @@ body {
     font-size: 12.8px;
     display: flex;
     flex-flow: column wrap;
-    max-height: 900px;
+    max-height: 920px;
     justify-content: space-between;
     max-width : 935px;
     margin-top: 150px;

@@ -109,6 +109,7 @@ replace 'c' and 'q' by 'l' for location
 `<C-g>g`              | skip all closing delimiter (delimitMate)
 `.    f`              | skip next closing delimiter
 `[<space>`            | blank line above (idem `]`)
+`[e`, `]e`            | exchange line w/ next/prev
 
 ## Fugitive
 
@@ -148,15 +149,16 @@ opening ( adds a space, closing ) does not
 `.       ] `  | tags
 `.       f `  | files
 
-## Buffers
+## Registers
 
-`<C-r>+buf` | Paste in :ex or insert mode
+`<C-r>+reg` | Paste in :ex or insert mode
 ---------   | -----------
 `_`         | black hole
 `+`         | clipboard
 `*`         | middleclick
 `"`         | unnamed / default
 `0`         | latest yank
+`gp`, `gP`  | places cursor after pasted
 
 ## Diff
 

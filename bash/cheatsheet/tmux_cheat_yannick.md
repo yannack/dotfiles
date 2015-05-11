@@ -20,6 +20,7 @@
 `<C-Up>`   | Make pane bigger (id. `<C-Down>`, `<C-Right>`, `<C-Left>`)
 `!`        | Break pane into own window
 `<PageUp>` | Enter copy mode and scroll up
+`<Space>`  | Cycle default pane layouts
 
 # Copyright
 
