@@ -13,12 +13,13 @@ NerdTree&nbsp;(F7) | 'cd' for CWD
 `<C-j>, <C-k>` | next / prev
 -------------  | -------------
 `<C-v>`        | vsplit
-`<leader>r`    | resume
 `<leader>f`    | files
 `<leader>b`    | buffers
 `<leader>t`    | tags
 `<leader>o`    | outline
 `<leader>/`    | search
+`<leader>r`    | resume
+`<leader>q`    | close unite
 `[s, ]s`       | prev/next unite result
 
 ## Scrolling

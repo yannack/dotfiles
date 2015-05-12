@@ -380,20 +380,17 @@ silent! call unite#filters#sorter_default#use(['sorter_rank'])
 " Ctrl-P replacement, relearning will be fast though.
 nnoremap <C-p> :Unite -start-insert file_rec/async:!<CR>
 let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
-let g:unite_source_tag_max_fname_length = 128
-let g:unite_source_tag_max_name_length = 64
-nnoremap <leader>f   :Unite -start-insert -buffer-name=files -no-split file_rec/async:!<CR>
+let g:unite_source_tag_max_fname_length = 32
+let g:unite_source_tag_max_name_length = 32
+" adding wipe is needed in no-split to wipe the buffer out once done. This
+" prevents :UniteResume and :UniteNext type functions, but doesn't break the
+" jumplist <C-o> / <C-i>
+nnoremap <leader>f   :Unite -start-insert -buffer-name=files -wipe -no-split file_rec/async:!<CR>
 nnoremap <leader>ufs :Unite -start-insert -buffer-name=files -default-action=split file_rec/async:!<CR>
 nnoremap <leader>ufv :Unite -start-insert -buffer-name=files -default-action=vsplit file_rec/async:!<CR>
-nnoremap <leader>b :Unite buffer -buffer-name=buffers -no-split <CR>
-nnoremap <leader>r :UniteResume<CR>
-nnoremap <leader>o :Unite -start-insert -no-split outline<CR>
-nnoremap <leader>t :Unite -start-insert -no-split tag<CR>
-nnoremap [s :UnitePrev<CR>
-nnoremap ]s :UniteNext<CR>
-nnoremap [S :UniteFirst<CR>
-nnoremap ]S :UniteLast<CR>
-
+nnoremap <leader>b :Unite buffer -buffer-name=buffers -wipe -no-split <CR>
+nnoremap <leader>o :Unite -start-insert -wipe -no-split outline<CR>
+nnoremap <leader>t :Unite -start-insert -wipe -no-split tag<CR>
 " Replace <C-]> with a Unite-tag based search.
 autocmd BufEnter *
             \   if empty(&buftype)
@@ -424,4 +421,11 @@ endfunction
 let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts = '--line-numbers --nocolor --nogroup --smart-case --hidden'
 let g:unite_source_grep_recursive_opt = ''
-nnoremap <Leader>/ :<C-u>Unite -no-split -silent -buffer-name=ag grep:.<CR>
+nnoremap <Leader>/ :<C-u>Unite -silent -buffer-name=ag -no-quit grep:.<CR>
+nnoremap <leader>r :UniteResume<CR>
+nnoremap [s :UnitePrev<CR>
+nnoremap ]s :UniteNext<CR>
+nnoremap [S :UniteFirst<CR>
+nnoremap ]S :UniteLast<CR>
+nnoremap <leader>q :UniteClose<CR>
+
