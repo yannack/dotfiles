@@ -71,6 +71,7 @@ set nowrap
 set autoindent
 set history=1000
 set cursorline
+set scrolloff=5     " Always show 5 lines above/below the cursor
 " disable mouse clicks over gvim
 set mouse=
 " To share the clipboard with other applications
