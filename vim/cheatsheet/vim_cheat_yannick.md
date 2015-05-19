@@ -68,7 +68,12 @@ NerdTree&nbsp;(F7) | 'cd' for CWD
 -------------        | -------------
 `\v`                 | following regex is very magic.  `:%s/\v(a|b)/c/`
 `\%V`                | what follows is inside visual area `/\%Vhere`
-`\zs`, `\ze`         | start/end markers for replace `%s/...\zsTARGET\ze.../REPLACED/`
+`\zs`, `\ze`         | start/end marks for replace `%s/…\zsOLD\ze…/NEW/`
+
+`<leader>vo`  | EasyGrep options
+------------- | -------------
+`<leader>vv`  | grep word under cursor
+`<leader>vr`  | replace word under cursor
 
 
 ## Quickfix and location

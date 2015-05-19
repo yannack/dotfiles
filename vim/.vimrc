@@ -362,6 +362,16 @@ command! Sudow :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " Add space after comment added by NerdCommenter
 let NERDSpaceDelims=1
 
+" Search
+" Let's put EasyGrep to use grepprg
+let g:EasyGrepCommand=1
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+  " unite should search for files using ag
+  let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
+endif
 
 " Delete empty buffers, specially for files opened with --remote option
 autocmd BufAdd * :call <SID>DeleteBufferIfEmpty()
@@ -378,7 +388,6 @@ silent! call unite#filters#matcher_default#use(['matcher_fuzzy'])
 silent! call unite#filters#sorter_default#use(['sorter_rank'])
 " Ctrl-P replacement, relearning will be fast though.
 nnoremap <C-p> :Unite -start-insert file_rec/async:!<CR>
-let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
 let g:unite_source_tag_max_fname_length = 32
 let g:unite_source_tag_max_name_length = 32
 " adding wipe is needed in no-split to wipe the buffer out once done. This
@@ -417,9 +426,11 @@ function! s:unite_settings()
 endfunction
 
 " Unite search -- not sure about this yet...
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '--line-numbers --nocolor --nogroup --smart-case --hidden'
-let g:unite_source_grep_recursive_opt = ''
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--line-numbers --nocolor --nogroup --smart-case --hidden'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 nnoremap <Leader>/ :<C-u>Unite -silent -buffer-name=ag -no-quit grep:.<CR>
 nnoremap <leader>r :UniteResume<CR>
 nnoremap [s :UnitePrev<CR>
