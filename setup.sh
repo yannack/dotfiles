@@ -1,20 +1,15 @@
 #!/bin/bash
 
-sudo apt-get install exuberant-ctags cscope
+sudo apt-get install exuberant-ctags cscope build-essential cmake python-dev
 
 ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
 ln -s ~/.dotfiles/bash/.bashrc ~/.bashrc
 ln -s ~/.dotfiles/bash/.liquidpromptrc ~/.liquidpromptrc
 ln -s ~/.dotfiles/vim/.vim ~/.vim
 test -d ~/.vim/bundle || mkdir ~/.vim/bundle
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
-vim +PluginUpdate +qall
-
-# YCM compilation
-sudo apt-get install build-essential cmake python-dev
-cd ~/.vim/bundle/YouCompleteMe
-./install.sh
+vim +PlugInstall +qall
+vim +PlugUpdate +qall
+vim +PlugUpgrade +qall
 
 # Powerline fonts for airline
 cd /tmp
