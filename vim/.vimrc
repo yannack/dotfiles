@@ -236,6 +236,7 @@ function! g:UltiSnips_Complete()
 endfunction
 
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " ---------------
 " YCM / python bug: (only prevents "." from completing, but Tab still works)
 let g:pymode_rope_complete_on_dot = 0
