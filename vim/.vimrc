@@ -1,61 +1,59 @@
 set nocompatible
-filetype off                   " required for Vundle
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall
+endif
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/bundle')
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'airblade/vim-gitgutter'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
-Plugin 'brookhong/cscope.vim'
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'chrismccord/bclose.vim'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'chase/vim-ansible-yaml'
-Plugin 'dkprice/vim-easygrep'
-Plugin 'godlygeek/tabular'
-Plugin 'gregsexton/gitv'
-Plugin 'honza/vim-snippets'
-Plugin 'janko-m/vim-test'
-Plugin 'jgdavey/tslime.vim'
-Plugin 'klen/python-mode'
-Plugin 'majutsushi/tagbar'
-Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'myusuf3/numbers.vim'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'nelstrom/vim-markdown-folding'
-Plugin 'Raimondi/delimitMate'
-Plugin 'rking/ag.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/syntastic'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/unite-outline'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'sjl/gundo.vim'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tsukkee/unite-tag'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-scripts/python.vim'
-Plugin 'vim-scripts/ShowTrailingWhitespace'
-Plugin 'vim-scripts/The-NERD-tree'
-Plugin 'wikitopian/hardmode.git'
+Plug 'airblade/vim-gitgutter'
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+Plug 'brookhong/cscope.vim'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'chrismccord/bclose.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'chase/vim-ansible-yaml'
+Plug 'dkprice/vim-easygrep'
+Plug 'godlygeek/tabular'
+Plug 'gregsexton/gitv'
+Plug 'honza/vim-snippets'
+Plug 'janko-m/vim-test'
+Plug 'jgdavey/tslime.vim'
+Plug 'klen/python-mode'
+Plug 'majutsushi/tagbar'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'myusuf3/numbers.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'nelstrom/vim-markdown-folding'
+Plug 'Raimondi/delimitMate'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-outline'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'SirVer/ultisnips'
+Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tsukkee/unite-tag'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+Plug 'vim-scripts/python.vim'
+Plug 'vim-scripts/ShowTrailingWhitespace'
+Plug 'vim-scripts/The-NERD-tree'
+Plug 'wikitopian/hardmode'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
+
 set laststatus=2
 filetype plugin indent on
 
