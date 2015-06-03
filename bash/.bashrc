@@ -134,8 +134,14 @@ alias bd=". bd -s"
 # Edit in "Readline vi mode"
 # set -o vi
 
-# A few useful aliases
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+pathadd ~/bin
 
+# A few useful aliases
 function lt() { ls -ltrsa "$@" | tail; }
 function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
 function fname() { find . -iname "*$@*"; }

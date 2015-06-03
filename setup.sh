@@ -6,6 +6,7 @@ ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
 ln -s ~/.dotfiles/bash/.bashrc ~/.bashrc
 ln -s ~/.dotfiles/bash/.liquidpromptrc ~/.liquidpromptrc
 ln -s ~/.dotfiles/vim/.vim ~/.vim
+ln -s ~/.dotfiles/bin ~/bin
 test -d ~/.vim/bundle || mkdir ~/.vim/bundle
 vim +PlugInstall +qall
 vim +PlugUpdate +qall
