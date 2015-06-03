@@ -3,9 +3,9 @@ body {
     font-size: 12.8px;
     display: flex;
     flex-flow: column wrap;
-    max-height: 900px;
+    max-height: 500px;
     justify-content: space-between;
-    max-width : 935px;
+    max-width : 435px;
     margin-top: 150px;
     background-image: url("tmux.png");
     background-repeat: no-repeat;
