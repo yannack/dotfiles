@@ -90,32 +90,33 @@ replace 'c' and 'q' by 'l' for location
 
 ## Various
 
-`<C-o>`               | insert normal mode
----------------       | -------------
-`<C-r><C-w>`          | copy word from buffer to :ex
-`gv`                  | reselect last visual select
-`o`                   | go to other end of visual
-`gq`                  | reflow (+move or in visual)
-`gf`                  | open file under cursor
-`ga`                  | show ascii&hex under cursor
-`g8`                  | show utf8 under cursor
-`guu`                 | lower case line (idem gUU)
-`~`                   | change letter case
-`ci(`, `ca(`          | change inside/around ()
-`:sort` / `<leader>s` | sort selection
-`:sort i`             | sort selection (insensitive)
-`q:`                  | open ex history
-`q/`                  | open search history
-`<C-l>`               | Redo coloring
-`%%`                  | expanded to file path in :ex
-`:Sudow`              | write file as root
-`:lcd`                | set CWD for current window only
-`<leader>cd`          | lcd to current file
-`<leader>md`          | mkdir for current file
-`<C-g>g`              | skip all closing delimiter (delimitMate)
-`.    f`              | skip next closing delimiter
-`[<space>`            | blank line above (idem `]`)
-`[e`, `]e`            | exchange line w/ next/prev
+`<C-o>`         | insert normal mode
+--------------- | -------------
+`<C-r><C-w>`    | copy word from buffer to :ex
+`gv`            | reselect last visual select
+`o`             | go to other end of visual
+`gq`            | reflow (+move or in visual)
+`gf`            | open file under cursor
+`ga`            | show ascii&hex under cursor
+`g8`            | show utf8 under cursor
+`guu`           | lower case line (idem gUU)
+`~`             | change letter case
+`ci(`, `ca(`    | change inside/around ()
+`<leader>s`     | sort selection
+`:sort i`       | sort selection (insensitive)
+`q:`            | open ex history
+`q/`            | open search history
+`<C-l>`         | Redo coloring
+`%%`            | expanded to file path in :ex
+`:Sudow`        | write file as root
+`:lcd`          | set CWD for current window only
+`<leader>cd`    | lcd to current file
+`<leader>md`    | mkdir for current file
+`<C-g>g`        | skip all closing delimiter (delimitMate)
+`.    f`        | skip next closing delimiter
+`[<space>`      | blank line above (idem `]`)
+`[e`, `]e`      | exchange line w/ next/prev
+`gn`            | next search match text object (`cgn`, `dgn`, ...)
 
 ## Fugitive
 
