@@ -25,4 +25,4 @@ fi
 echo "$ssh_key" | egrep -q "ssh|rsa" || { echo "not a valid ssh_key $mode"; echo "$USAGE" && exit 1; }
 test -d /home/"$user" || sudo adduser --disabled-password --gecos "For Wemux" "$user"
 test -d /home/"$user"/.ssh || sudo -u "$user" mkdir /home/"$user"/.ssh/
-echo "command=\"wemux pair\" $ssh_key" | sudo -u "$user" tee -a /home/"$user"/.ssh/authorized_keys2 > /dev/null
+echo "command=\"wemux pair\" $ssh_key",no-port-forwarding,no-X11-forwarding | sudo -u "$user" tee -a /home/"$user"/.ssh/authorized_keys2 > /dev/null
