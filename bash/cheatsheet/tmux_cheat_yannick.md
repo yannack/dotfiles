@@ -1,3 +1,30 @@
+## Wemux commands
+
+**Server commands:**
+
+`start`       | start server
+----          | -------------
+`attach`      | attach to existing server
+`stop`        | stop server
+`kick` *`user`* | kick a user
+
+**Client commands:**
+
+`mirror`  | attach in read only
+---- | -------------
+`pair`  | attach in pair mode
+
+## Inside windows
+
+**all prefixed by `<C-b>` :**
+
+`c`  | new window
+---- | -------------
+`w`  | list windows
+`f`  | find window
+`,`  | rename  window
+`&`  | kill window
+
 ## Inside sessions
 
 **all prefixed by `<C-b>` :**
@@ -24,37 +51,23 @@
 `q`        | show pane numbers (type to select)
 `<C-Up>`   | Make pane bigger (id. `<C-Down>`, `<C-Right>`, `<C-Left>`)
 `!`        | Break pane into own window
-`<PageUp>` | Enter copy mode and scroll up
 `<Space>`  | Cycle default pane layouts
 `<C-k>`    | Delete end of line (normal `<C-k>`)
 `h`        | goto pane to left (id. `j`, `k`, `l`)
 
-## Inside windows
 
-**all prefixed by `<C-b>` :**
+## Copy/pasting
 
-`c`  | new window
----- | -------------
-`w`  | list windows
-`f`  | find window
-`,`  | rename  window
-`&`  | kill window
+`q`                 | exit copy mode
+-----------         | ------
+`<PageUp>`          | Enter copy mode and scroll up
+`<C-b>[`            | Enter copy mode
+`<Space>` / **`v`** | visual select
+`<C-v>` | visual block select
+`<Enter>` / **`y`** | copy
+`<C-b>]`            | paste
+`<C-b>y`            | copy tmux buffer to system buffer
 
-## Wemux commands
-
-**Server commands:**
-
-`start`       | start server
-----          | -------------
-`attach`      | attach to existing server
-`stop`        | stop server
-`kick` *`user`* | kick a user
-
-**Client commands:**
-
-`mirror`  | attach in read only
----- | -------------
-`pair`  | attach in pair mode
 
 # Copyright
 
