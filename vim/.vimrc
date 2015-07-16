@@ -73,6 +73,7 @@ set cursorline
 set scrolloff=5     " Always show 5 lines above/below the cursor
 " disable mouse clicks over gvim
 set mouse=
+set ttimeoutlen=0  "remove key code delays to have faster ESC->Normal mode
 " To share the clipboard with other applications
 " if has("unnamedplus")
 "   set clipboard=unnamedplus
