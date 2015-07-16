@@ -184,6 +184,20 @@ dp            | `:diffput` (not in visual mode)
 
 
 
+## Global commands
+
+`:g/Search/ExCommand` | apply Ex command to lines matching
+-------------         | -------------
+`:v/Search/ExCommand` | apply Ex command to lines *not* matching
+
+Examples:
+
+`:g/^\w/t.|s/./=/g`   | add a line of "=" after each line starting with a space
+---------             | --------------
+`:g/pat/normal 20^A`  | add 20 to all lines matching patterns (insert C^A with `<C-V><C-A>`)
+`:v/pat/d`            | delete lines not matching mattern
+
+
 # Copyright
 
 This work is licensed under a 
