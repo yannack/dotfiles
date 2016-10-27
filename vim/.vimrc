@@ -10,8 +10,9 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
-Plug 'bling/vim-airline'
-Plug 'brookhong/cscope.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'brookhong/cscope.vim'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'chrismccord/bclose.vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -19,29 +20,34 @@ Plug 'chase/vim-ansible-yaml'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'dkprice/vim-easygrep'
 Plug 'godlygeek/tabular'
+Plug 'google/vim-searchindex'
 Plug 'gregsexton/gitv'
 Plug 'honza/vim-snippets'
 Plug 'janko-m/vim-test'
 Plug 'jgdavey/tslime.vim'
+Plug 'pangloss/vim-javascript'
 Plug 'klen/python-mode'
 Plug 'majutsushi/tagbar'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'myusuf3/numbers.vim'
+" Plug 'myusuf3/numbers.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'nelstrom/vim-markdown-folding'
-Plug 'Raimondi/delimitMate'
+Plug 'othree/html5.vim'
+" Plug 'Raimondi/delimitMate'
 Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/syntastic'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -55,10 +61,10 @@ Plug 'wikitopian/hardmode'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
+let mapleader="\<Space>"
 set laststatus=2
 filetype plugin indent on
 
-let mapleader="\<Space>"
 syntax on
 set number
 set hlsearch
@@ -80,8 +86,8 @@ set ttimeoutlen=0  "remove key code delays to have faster ESC->Normal mode
 " elseif has("clipboard")
 "   set clipboard=unnamed
 " endif
-" have Vim jump to the last position when reopening a file
 if has("autocmd")
+  " have Vim jump to the last position when reopening a file
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
   " .md file should not be seen as modula2 :)
   autocmd BufNewFile,BufRead *.md set filetype=markdown
@@ -95,6 +101,21 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
+set ttyfast
+set lazyredraw
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+" Too slow:
+" let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_quiet_messages = {
+      \ "regex": ["No name '[a-zA-Z-_]*_pb2'", 'Invalid method name "_']}
+" let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_mode_map = {
+      \ "mode": "active",
+      \ "active_filetypes": [],
+      \ "passive_filetypes": ["python"] }
 
 " Easier split navigation
 map <C-J> <C-W>j
@@ -110,8 +131,8 @@ let g:snips_author='Yannick Brehon'
 let g:author='Yannick Brehon'
 let g:snips_email=''
 let g:email=''
-let g:snips_company='Smartmatic, Inc.'
-let g:company='Smartmatic, Inc.'
+let g:snips_company='Google, Inc.'
+let g:company='Google, Inc.'
 
 " Airline setup
 " set guifont=Sauce\ Code\ Powerline\ 11
@@ -149,10 +170,13 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 "     set background=dark
 " endif
 set background=light
+" Google specific coloring
+set t_Co=256
 if $COLORTERM == 'gnome-terminal'
   set t_Co=256
+" else
+"   let g:solarized_termcolors=256
 endif
-" let g:solarized_termcolors=256
 
 " made silent to allow proper initial installation from Ansible
 silent! colorscheme solarized
@@ -160,10 +184,55 @@ silent! colorscheme solarized
 highlight ShowTrailingWhitespace ctermbg=red guibg=red
 
 nmap <C-W>x <Plug>Bclose
+nmap <leader>l :redraw!<CR>
+nmap <leader>cf :FormatCode<CR>
+vmap <leader>cf :FormatLines<CR>
+
+" Better 'system'
+function! ChompedSystem( ... )
+    return substitute(call('system', a:000), '\n\+$', '', '')
+endfunction
 
 " Tags
-set tags=./tags;
+let gitdir=ChompedSystem("git rev-parse --show-toplevel")
+execute "set tags=./tags;".gitdir
 nmap <F8> :TagbarToggle<CR>
+nmap <S-F8> :TagbarOpenAutoClose<CR>
+
+" Session management
+function! g:UpdateSession()
+  if exists('&g:session_file')
+    let prevsession=g:session_file
+  endif
+  let g:session_file=join([ChompedSystem("git rev-parse --show-toplevel 2>/dev/null"),
+        \ ChompedSystem("git rev-parse --abbrev-ref HEAD 2>/dev/null"),
+        \ "-Session.vim"], "")
+  if g:session_file=="-Session.vim"
+    return
+  endif
+  let g:session_file = substitute(g:session_file, "/", "_", "g")
+  let g:session_file = join([$HOME, "/tmp/", g:session_file], "")
+  if argc() != 0
+    return
+  endif
+  " if !exists('&prevsession') || prevsession!=g:session_file
+  "   if filereadable(g:session_file)
+  "     " bufdo bd
+  "     execute ':source' . g:session_file
+  "   else
+  "     execute 'Obsession' . g:session_file
+  "   endif
+  " endif
+endfunction
+autocmd VimEnter,ShellCmdPost * nested call UpdateSession()
+function! g:StartSession()
+  execute 'Obsession' . g:session_file
+endfunction
+command! StartSession call StartSession()
+function! g:ResumeSession()
+  execute ':source' . g:session_file
+endfunction
+command! ResumeSession call ResumeSession()
 
 " Set bash as default editor
 let g:is_bash = 1
@@ -253,6 +322,7 @@ let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 let g:pymode_breakpoint_bind = '<leader>p'
 
 setlocal foldmethod=syntax
+let javaScript_fold=1
 set nofoldenable
 
 au FileType python call SetupPython()
@@ -327,7 +397,7 @@ set colorcolumn=79
 let g:pymode_options_max_line_length = 79
 " The following 3 lines are to allow autoformatting with gqap (for a paragraph)
 " and auto formatting of comment lines.
-set tw=79 " width of document (used by gq)
+set tw=80 " width of document (used by gq)
 set nowrap " don't automatically wrap on load
 set fo-=t " don't automatically wrap text when typing
 
@@ -375,29 +445,36 @@ if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
   " unite should search for files using ag
-  let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
+  let g:unite_source_rec_async_command=['ag', '--follow', '--nocolor', '--nogroup', '--hidden',
+        \ '--ignore', 'READONLY', '--ignore', 'blaze-*', '--ignore', 'review',
+        \ '-g', '']
 endif
 
-" Delete empty buffers, specially for files opened with --remote option
-autocmd BufAdd * :call <SID>DeleteBufferIfEmpty()
-function! s:DeleteBufferIfEmpty()
-    if bufname('%') == ''
-        bwipe
-        " This will trigger filetype detection, mainly to trigger syntax highlighting
-        doautocmd BufRead
-    endif
-endfunction
+" " Delete empty buffers, specially for files opened with --remote option
+" autocmd BufAdd * :call <SID>DeleteBufferIfEmpty()
+" function! s:DeleteBufferIfEmpty()
+"     if bufname('%') == ''
+"         bwipe
+"         " This will trigger filetype detection, mainly to trigger syntax highlighting
+"         doautocmd BufRead
+"     endif
+" endfunction
 
 " Unite settings
 silent! call unite#filters#matcher_default#use(['matcher_fuzzy'])
-silent! call unite#filters#sorter_default#use(['sorter_rank'])
+silent! call unite#filters#sorter_default#use(['sorter_selecta'])
+" silent! call unite#custom#source('file_rec', 'filters', ['sorter_rank', 'sorter_length'])
+" silent! call unite#custom#source('file_rec', 'filters', ['sorter_selecta', 'sorter_length'])
 " Ctrl-P replacement, relearning will be fast though.
 nnoremap <C-p> :Unite -start-insert file_rec/async:!<CR>
-let g:unite_source_tag_max_fname_length = 32
+let g:unite_source_tag_max_fname_length = 96
 let g:unite_source_tag_max_name_length = 32
 " adding wipe is needed in no-split to wipe the buffer out once done. This
 " prevents :UniteResume and :UniteNext type functions, but doesn't break the
 " jumplist <C-o> / <C-i>
+
+" on a large codebase which has no .git, we can't use the file_rec/async:!
+" command, so we should resort to using current directory.
 nnoremap <leader>f   :Unite -start-insert -buffer-name=files -wipe -no-split file_rec/async:!<CR>
 nnoremap <leader>ufs :Unite -start-insert -buffer-name=files -default-action=split file_rec/async:!<CR>
 nnoremap <leader>ufv :Unite -start-insert -buffer-name=files -default-action=vsplit file_rec/async:!<CR>

@@ -46,7 +46,8 @@ case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
 
-
+# The following is probably not nice in pure terminals, but who knows. TBD.
+export TERM="screen-256color"  # compatible with tmux in ssh too :)
 
 if [ "$COLORTERM" = 'gnome-terminal' ]
 then
@@ -148,3 +149,5 @@ function fname() { find . -iname "*$@*"; }
 alias pp="ps axuf | pager"
 function mcd() { mkdir $1 && cd $1; }
 alias g="gvim --remote-silent"
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+timeit() { CMD=$@; python -m timeit -s 'import subprocess;' -n 100 -r 1 "subprocess.call(\"\"\"$CMD\"\"\", shell=True)" ; }
