@@ -50,7 +50,8 @@
 `z`        | toggle zoom on pane
 `q`        | show pane numbers (type to select)
 `<C-Up>`   | Make pane bigger (id. `<C-Down>`, `<C-Right>`, `<C-Left>`)
-`!`        | Break pane into own window
+`!`        | Break pane into its own window
+`S`        | Send pane to another window
 `<Space>`  | Cycle default pane layouts
 `<C-k>`    | Delete end of line (normal `<C-k>`)
 `h`        | goto pane to left (id. `j`, `k`, `l`)
