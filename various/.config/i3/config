@@ -30,7 +30,8 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -158,10 +159,30 @@ bar {
         status_command i3status
 }
 
-# Flip caps/escape
-exec --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape"
-# Load qwerty-fr as default layout
-exec --no-startup-id setxkbmap us qwerty-fr
+# Sound controls
+# bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+ #increase sound volume
+# bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%- #decrease sound volume
+# bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master 1+ toggle # mute sound
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Flip caps/escape and make right ctrl an AltGr
+exec --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape" -option "lv3:switch"
+# wrists
+exec --no-startup-id xwrits t=55 b=4 fla=:.5 &
+# Slow mouse waaaaaay down
+exec --no-startup-id xinput set-prop "Kingsis Peripherals Evoluent VerticalMouse 4" 155 0.2, 0, 0, 0, 0.2, 0, 0, 0, 1
+# default is: xinput set-prop "Kingsis Peripherals Evoluent VerticalMouse 4" 155 1, 0, 0, 0, 1, 0, 0, 0, 1
+# Load qwerty-fr as default layout. Sleeping 15 seconds to come after ibus sets
+# qwerty. Ibus doesn't know about qwerty-fr.
+exec --no-startup-id sleep 15 && setxkbmap us qwerty-fr &
 # Better repeat rate
 exec --no-startup-id xset r rate 400 50
 exec_always --no-startup-id xautolock -detectsleep -time 5 -locker 'i3lock -d -c 000000' -notifier "notify-send -u critical -t 30000 -- 'LOCKING screen in 30 seconds'" -notify 30 &
@@ -169,4 +190,6 @@ exec_always --no-startup-id xautolock -detectsleep -time 5 -locker 'i3lock -d -c
 bindsym $mod+Control+l exec --no-startup-id xautolock -locknow
 exec --no-startup-id /usr/share/goobuntu-indicator/goobuntu_indicator.py &
 exec --no-startup-id redshift-gtk &
+exec --no-startup-id nm-applet
+
 bindsym $mod+Shift+d exec i3-dmenu-desktop
